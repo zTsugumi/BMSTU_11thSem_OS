@@ -7,6 +7,44 @@
 
 #include "kernel/lib/memory/mmu.h"
 
+ 
+/* 
+*Vitual memory map:                                 Permissions 
+*                                                   kernel/user           
+* 
+*                   +------------------------------+  
+*                   |                              | RW/-- 
+*                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*                                       
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*                    
+*/ 
+ 
+
 #define VADDR(paddr_) ((void *)((uintptr_t)(paddr_) + VADDR_BASE))
 #define PADDR(vaddr_) ((uintptr_t)(vaddr_) - VADDR_BASE)
 
@@ -38,7 +76,7 @@
 // Physical address of the IO APIC base
 #define IOAPIC_BASE_PA	0xFEC00000
 
-#define USER_TOP	0x0000010000000000	// 1 TB
+#define USER_TOP	    0x0000010000000000	// 1 TB
 #define USER_STACK_TOP	0x0000000a00000000
 
 #endif

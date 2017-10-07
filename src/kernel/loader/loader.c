@@ -99,16 +99,27 @@ void *loader_alloc(uint64_t size, uint32_t align)
 	(void)size;
 	(void)align;
 
+	uint8_t *loader_freemem;
+
+	// LAB 2: Your code here:
+	//	Step 1: round loader_freemem up to be aligned properly
+	//	Step 2: save current value of loader_freemem as allocated chunk
+	//	Step 3: increase free_memory to record allocation
+	//	Step 4: return allocated loader_freemem
+
+
+
 	return NULL;
 }
 
 // LAB2 Instruction:
-// - read elf header (see boot/main.c, but use `elf64_*' here)
-// - check magic
+// - read elf header (see boot/main.c, but use `elf64_*' here) (for error use terminal_printf)
+// - check magic ELF_MAGIC
 // - store `kernel_entry_point'
 // - read other segments:
 // -- shift `free_memory' if needed to avoid overlaps in future
 // -- load kernel into physical addresses instead of virtual (drop >4Gb part of virtual address)
+// -- use loader_alloc
 #define KERNEL_BASE_DISK_SECTOR 2048 // 1Mb
 int loader_read_kernel(uint64_t *kernel_entry_point)
 {
