@@ -47,17 +47,17 @@ void kernel_init_mmap(void)
 		uint64_t base;
 	} __attribute__((packed)) gdtr;
 
-	// Convert physical addresses into virtual ones
-	config->gdt.ptr = VADDR(config->gdt.ptr);
-	config->pml4.ptr = VADDR(config->pml4.ptr);
-	config->pages.ptr = VADDR(config->pages.ptr);
+	// Convert physical addresses from struct config into virtual one
+	// LAB3 code here
 
+	//Reinitialize pml4 pointer
 	cpu->pml4 = config->pml4.ptr;
 
 	// Reinitialize state
+	// see state struct info
+	// use config param
 	state.free = (struct mmap_free_pages){ NULL };
-	state.pages_cnt = config->pages_cnt;
-	state.pages = config->pages.ptr;
+	// LAB3 code here
 	mmap_init(&state);
 
 	sgdt(gdtr);
@@ -74,6 +74,10 @@ void kernel_init_mmap(void)
 	uint32_t used_pages = 0;
 	for (int64_t i = state.pages_cnt-1; i >= 0; i--) {
 		// LAB3 code here
+
+		// Pages inside free list may has ref counter > 0, this means
+		// that page is used, but reuse is allowed.
+
 		(void)pages32;
 	}
 
