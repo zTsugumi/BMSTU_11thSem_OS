@@ -100,6 +100,7 @@ void *loader_alloc(uint64_t size, uint32_t align)
 	(void)align;
 
 	uint8_t *loader_freemem;
+	(void)loader_freemem;
 
 	// LAB 2: Your code here:
 	//	Step 1: round loader_freemem up to be aligned properly
