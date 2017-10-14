@@ -16,7 +16,7 @@ define debug-loader
 	add-symbol-file kernel/boot/bootloader.debug 0x7c00
 	add-symbol-file kernel/loader/loader 0x100000
 
-	layout src
+	layout split
 end
 document debug-loader
 Syntax: debug-loader
@@ -28,7 +28,7 @@ define debug-kernel
 
 	add-symbol-file kernel/kernel 0xFFFFFFF800200000
 
-	layout src
+	layout split
 end
 document debug-kernel
 Syntax: debug-kernel
