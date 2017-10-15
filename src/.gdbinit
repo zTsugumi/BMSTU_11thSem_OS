@@ -34,3 +34,17 @@ document debug-kernel
 Syntax: debug-kernel
 | Prepare for kernel debugging
 end
+
+define debug-loader-b
+	b *0x7c00
+
+	b memory_detected
+
+	b *0x7d19
+
+	b *0x100000
+end
+document debug-loader-b
+Syntax: debug-loader-b
+| breakpoints
+end
