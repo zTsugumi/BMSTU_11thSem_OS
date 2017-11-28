@@ -11,7 +11,7 @@
 #include "kernel/lib/console/terminal.h"
 
 // LAB5 Instruction:
-// - find page, virtual address `va' belongs to
+// - find page, virtual address `va' belongs to. Use page_lookup
 // - insert it into `dest->pml4' and `src->pml4' if needed
 __attribute__((unused))
 static int task_share_page(struct task *dest, struct task *src, void *va, unsigned perm)
@@ -34,16 +34,23 @@ static int task_share_page(struct task *dest, struct task *src, void *va, unsign
 //
 // - share pages:
 // - check all entries inside pml4 before `USER_TOP'
-// - check all entrins inside page directory pointer
-// - check all entries inside page directory
-// - check all entries inside page table and share if present
+// - check all entrins inside page directory pointer size NPDP_ENTRIES
+// - check all entries inside page directory size NPD_ENTRIES
+// - check all entries inside page table and share if present NPT_ENTRIES
 //
 // - mark new task as `ready'
 // - return new task id
 __attribute__((unused))
 static int sys_fork(struct task *task)
 {
-	(void)task;
+	//struct task *child = task_new("child");
+
+	//if (child == NULL)
+		//return -1;
+	//child->context = task->context;
+	//child->context.gprs.rax = 0; // return value
+
+	
 	return -1;
 }
 
