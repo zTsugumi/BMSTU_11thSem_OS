@@ -50,6 +50,7 @@ static int sys_fork(struct task *task)
 	//child->context = task->context;
 	//child->context.gprs.rax = 0; // return value
 
+	(void)task;
 	
 	return -1;
 }
