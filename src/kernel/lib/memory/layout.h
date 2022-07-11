@@ -8,41 +8,42 @@
 #include "kernel/lib/memory/mmu.h"
 
  
-/* 
-*Vitual memory map:                                 Permissions 
-*                                                   kernel/user           
-* 
-*                   +------------------------------+  
-*                   |                              | RW/-- 
-*                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*                                       
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*                    
-*/ 
+/*
+ * Virtual memory map:                                                              
+ *
+ *                   +------------------------------+ 0xFFFF FFFF FFFF FFFF
+ *                   |                              | 
+ *                   |                              | 
+ *                   |                              | 
+ *                   |                              | 
+ *                   |     OS Kernel 32 GB          | 
+ *                   |                              | 
+ *                   |                              |  
+ *                   |                              | 
+ *  KERNEL_BASE,---> +------------------------------+ 0xFFFF FFF8 0000 0000 
+ * KERNEL_STACK_TOP  |                              |                         
+ *                   |                              |                            
+ *                   |     OS Stack. Grow form      |                                      
+ *                   |    high address to lower     |
+ *                   |                              |
+ *  KERNEL_INFO ---> +------------------------------+
+ *                   |                              |
+ *                   |                              |
+ *    APIC_BASE ---> +------------------------------+ 
+ *                   |                              |
+ *  IOAPIC_BASE ---> +------------------------------+ 
+ *                   .                              .
+ *                   .     Unmapped Memory          .
+ *                   .                              .
+ *                   +------------------------------+ 0x0000 0100 0000 0000
+ *                   |                              | 
+ *                   |     User Space 1 TB          | 
+ *                   |                              | 
+ *                   +                              + 
+ *                   |                              | 
+ *                   +------------------------------+ 0x0000 0000 0000 0000
+ * 
+ */
  
 
 #define VADDR(paddr_) ((void *)((uintptr_t)(paddr_) + VADDR_BASE))
@@ -66,10 +67,10 @@
 #define EXCEPTION_STACK_TOP	(INTERRUPT_STACK_TOP - INTERRUPT_STACK_SIZE)
 
 // It is good idea to make at least one temporary page for each
-// processor. But for now we use only one procesor, so one page
+// processor. But for now we use only one processor, so one page
 // should be enough.
-#define KERNLE_TEMP_PAGE_CNT	(1)
-#define KERNEL_TEMP		(EXCEPTION_STACK_TOP - EXCEPTION_STACK_SIZE - KERNLE_TEMP_PAGE_CNT*PAGE_SIZE)
+#define KERNEL_TEMP_PAGE_CNT	(1)
+#define KERNEL_TEMP		(EXCEPTION_STACK_TOP - EXCEPTION_STACK_SIZE - KERNEL_TEMP_PAGE_CNT*PAGE_SIZE)
 
 // Physical address of the APIC base
 #define APIC_BASE_PA	0xFEE00000
