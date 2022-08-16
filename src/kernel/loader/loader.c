@@ -92,23 +92,19 @@ something_bad:
 	}
 }
 
-// LAB2 Instruction:
-// - use `free_memory' as a pointer to memory, wich may be allocated
+// LAB2
+// - use `free_memory' as a pointer to memory, witch may be allocated
+// - round memory_chunk up to be aligned properly
+// - save current value of memory_chunk as allocated chunk
+// - increase free_memory to record allocation
+// - return allocated memory_chunk
 void *loader_alloc(uint64_t size, uint32_t align)
 {
 	(void)size;
 	(void)align;
 
-	uint8_t *loader_freemem;
-	(void)loader_freemem;
-
-	// LAB 2: Your code here:
-	//	Step 1: round loader_freemem up to be aligned properly
-	//	Step 2: save current value of loader_freemem as allocated chunk
-	//	Step 3: increase free_memory to record allocation
-	//	Step 4: return allocated loader_freemem
-
-
+	uint8_t *memory_chunk;
+	(void)memory_chunk;
 
 	return NULL;
 }
