@@ -3,7 +3,7 @@ AC_PREREQ([2.69])
 AC_INIT([Ann], [1.0], [pereverzevva@bmstu.ru])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 
-# Disable default `-O2 -g'
+# Disable default '-O2 -g'
 if test "x$CFLAGS" = "x"; then
 	CFLAGS=""
 fi

@@ -56,14 +56,14 @@ static const char *interrupt_name[256] = {
 
 // LAB5-6 Instruction:
 // - find page, this address belongs to
-// - if page not found or `r/w' bit is not set -> destroy task (this is invalid app)
-// - if page doesn't contain `cow' bit -> destroy task (attempt to write into protected page)
+// - if page not found or 'r/w' bit is not set -> destroy task (this is invalid app)
+// - if page doesn't contain 'cow' bit -> destroy task (attempt to write into protected page)
 // - copy page:
 // -- allocate new page
-// -- map it into `KERNEL_TEMP'
+// -- map it into 'KERNEL_TEMP'
 // -- copy date from origin page
 // -- insert new page instead of origin one
-// -- remove `KERNEL_TEMP' mapping
+// -- remove 'KERNEL_TEMP' mapping
 #define PAGE_FAULT_ERROR_CODE_P		(1 << 0)
 #define PAGE_FAULT_ERROR_CODE_R_W	(1 << 1)
 #define PAGE_FAULT_ERROR_CODE_U_S	(1 << 2)
@@ -79,7 +79,7 @@ void page_fault_handler(struct task *task)
 		goto fail;
 
 fail:
-	terminal_printf("Page fault at `%lx', opration: %s, accessed by: %s\n", va,
+	terminal_printf("Page fault at '%lx', opration: %s, accessed by: %s\n", va,
 			(task->context.error_code & PAGE_FAULT_ERROR_CODE_R_W) != 0 ? "write" : "read",
 			(task->context.error_code & PAGE_FAULT_ERROR_CODE_U_S) != 0 ? "user" : "supervisor");
 	if (pte != NULL && (*pte & PTE_COW) != 0)
@@ -100,13 +100,13 @@ void interrupt_handler(struct task_context ctx)
 	struct cpu_context *cpu = cpu_context();
 
 	// XXX: Interrups are disabled here, think twice before enable it,
-	// because they can modify `cpu' value (it may cause a lot of problems)
+	// because they can modify 'cpu' value (it may cause a lot of problems)
 	cpu->task->context = ctx;
 	cpu->task->state = TASK_STATE_READY;
 
 	// LAB4 Instruction:
 	// - process known interrupt, and use default handler for all others.
-	// - take into account, that kernel uses `int 3' to call `schedule()'
+	// - take into account, that kernel uses 'int 3' to call 'schedule()'
 	switch (ctx.interrupt_number) {
 	case INTERRUPT_VECTOR_PAGE_FAULT:
 		return page_fault_handler(cpu->task);

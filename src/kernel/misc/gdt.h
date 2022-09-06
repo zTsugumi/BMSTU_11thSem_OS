@@ -89,7 +89,7 @@ struct descriptor {
 }
 
 
-// XXX: `s' must be zero
+// XXX: 's' must be zero
 struct descriptor64 {
 	union {
 		struct {

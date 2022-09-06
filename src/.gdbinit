@@ -7,10 +7,10 @@ define qemu
 end
 document qemu
 Syntax: qemu [host:port]
-| Connect to qemu. Use `localhost:1234' if nothing specified
+| Connect to qemu. Use 'localhost:1234' if nothing specified
 end
 
-define debug-loader
+define debug-boot
 	set architecture i8086
 
 	add-symbol-file kernel/boot/bootloader.debug 0x7c00
@@ -25,6 +25,20 @@ define debug-loader
 	b complete_flush
 
 	b bootmain
+
+	b *0x100000
+end
+document debug-boot
+Syntax: debug-boot
+| Prepare for boot debugging
+end
+
+define debug-loader
+	set architecture i8086
+
+	add-symbol-file kernel/loader/loader 0x100000
+
+	layout split
 
 	b *0x100000
 end

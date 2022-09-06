@@ -10,7 +10,7 @@ extern panic_t panic;
 
 #define assert(expr_) {						\
 	if (!!(expr_) == 0 && panic != NULL)			\
-		panic("\nAssertation `%s' failed (%s:%d)",	\
+		panic("\nAssertation '%s' failed (%s:%d)",	\
 		      #expr_, __FILE__, __LINE__);		\
 }
 

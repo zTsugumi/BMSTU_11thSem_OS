@@ -63,7 +63,7 @@ qemu-no-reboot: Makefile
 	$(MAKE) -f Makefile $@
 
 
-# to make `automake' happy
+# to make 'automake' happy
 all-am:
 clean-am:
 

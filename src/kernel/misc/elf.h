@@ -12,7 +12,7 @@ typedef int32_t  Elf32_Sword;
 typedef uint32_t Elf32_Word;
 
 struct elf32_header {
-	Elf32_Word e_magic;	// elf magic, must be equal to `ELF_MAGIC'
+	Elf32_Word e_magic;	// elf magic, must be equal to 'ELF_MAGIC'
 	uint8_t e_elf[12];	// elf identification
 	Elf32_Half e_type;	// object file type
 	Elf32_Half e_machine;	// machine type
@@ -49,7 +49,7 @@ typedef uint64_t Elf64_Xword;
 typedef int64_t Elf64_Sxword;
 
 struct elf64_header {
-	Elf64_Word e_magic;	// elf magic, must be equal to `ELF_MAGIC'
+	Elf64_Word e_magic;	// elf magic, must be equal to 'ELF_MAGIC'
 	uint8_t e_elf[12];	// elf identification
 	Elf64_Half e_type;	// object file type
 	Elf64_Half e_machine;	// machine type

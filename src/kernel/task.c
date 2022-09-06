@@ -42,11 +42,11 @@ void task_list(void)
 }
 
 // LAB6 Instruction:
-// - find and destroy task with id == `task_id' (check `tasks' list)
+// - find and destroy task with id == 'task_id' (check 'tasks' list)
 // - don't allow destroy kernel thread (check privelege level)
 void task_kill(task_id_t task_id)
 {
-	terminal_printf("Can't kill task `%d': no such task\n", task_id);
+	terminal_printf("Can't kill task '%d': no such task\n", task_id);
 }
 
 struct task *task_new(const char *name)
@@ -58,7 +58,7 @@ struct task *task_new(const char *name)
 
 	task = LIST_FIRST(&free_tasks);
 	if (task == NULL) {
-		terminal_printf("Can't create task `%s': no more free tasks\n", name);
+		terminal_printf("Can't create task '%s': no more free tasks\n", name);
 		return NULL;
 	}
 
@@ -71,15 +71,15 @@ struct task *task_new(const char *name)
 	task->state = TASK_STATE_DONT_RUN;
 
 	if ((pml4_page = page_alloc()) == NULL) {
-		terminal_printf("Can't create task `%s': no memory for new pml4\n", name);
+		terminal_printf("Can't create task '%s': no memory for new pml4\n", name);
 		return NULL;
 	}
 	page_incref(pml4_page);
 
 	// LAB6 instruction:
-	// - setup `task->pml4'
+	// - setup 'task->pml4'
 	// - clear it
-	// - initialize kernel space part of `task->pml4'
+	// - initialize kernel space part of 'task->pml4'
 	(void)kernel_pml4;
 
 	return task;
@@ -88,7 +88,7 @@ struct task *task_new(const char *name)
 void task_destroy(struct task *task)
 {
 	if (task->pml4 == NULL)
-		// Nothing to do (possible when `task_new' failed)
+		// Nothing to do (possible when 'task_new' failed)
 		return;
 
 	struct cpu_context *cpu = cpu_context();
@@ -96,7 +96,7 @@ void task_destroy(struct task *task)
 	if (task == cpu->task)
 		cpu->task = NULL;
 
-	// We must be inside `task' address space. Because we use
+	// We must be inside 'task' address space. Because we use
 	// virtual address to modify page table. This is needed to
 	// avoid any problems when killing forked process.
 	uint64_t old_cr3 = rcr3();
@@ -145,7 +145,7 @@ void task_destroy(struct task *task)
 		page_decref(pa2page(pdpe_pa));
 	}
 
-	// Reload cr3, because it may be reused after `page_decref'
+	// Reload cr3, because it may be reused after 'page_decref'
 	if (old_cr3 != PADDR(task->pml4)) {
 		lcr3(old_cr3);
 	} else {
@@ -166,9 +166,9 @@ void task_destroy(struct task *task)
 }
 
 // LAB6 Instruction:
-// - allocate space (use `page_insert')
-// - copy `binary + ph->p_offset' into `ph->p_va'
-// - don't forget to initialize bss (diff between `memsz and filesz')
+// - allocate space (use 'page_insert')
+// - copy 'binary + ph->p_offset' into 'ph->p_va'
+// - don't forget to initialize bss (diff between 'memsz and filesz')
 __attribute__((unused))
 static int task_load_segment(struct task *task, const char *name,
 			     uint8_t *binary, struct elf64_program_header *ph)
@@ -190,13 +190,13 @@ static int task_load(struct task *task, const char *name, uint8_t *binary, size_
 	struct elf64_header *elf_header = (struct elf64_header *)binary;
 
 	if (elf_header->e_magic != ELF_MAGIC) {
-		terminal_printf("Can't load task `%s': invalid elf magic\n", name);
+		terminal_printf("Can't load task '%s': invalid elf magic\n", name);
 		return -1;
 	}
 
 	// LAB6 Instruction:
-	// - load all proram headers with type `load' (use `task_load_segment')
-	// - setup task `rip'
+	// - load all proram headers with type 'load' (use 'task_load_segment')
+	// - setup task 'rip'
 	(void)task;
 	(void)name;
 	(void)size;
@@ -275,9 +275,9 @@ void schedule(void)
 	static int next_task_idx = 0;
 
 	// LAB6 Instruction: implement scheduler
-	// - check all tasks in state `ready'
-	// - load new `cr3'
-	// - setup `cpu' context
+	// - check all tasks in state 'ready'
+	// - load new 'cr3'
+	// - setup 'cpu' context
 	// - run new task
 	(void)cpu;
 	(void)next_task_idx;

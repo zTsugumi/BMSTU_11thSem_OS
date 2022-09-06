@@ -113,7 +113,7 @@ void terminal_put_color(uint8_t ch, uint8_t color)
 
 void terminal_put(uint8_t ch)
 {
-	// Disable interrupts, because `terminal_put_color'
+	// Disable interrupts, because 'terminal_put_color'
 	// is not reenterant. Interrupts will be enabled on task switch.
 	asm volatile ("cli");
 
@@ -229,13 +229,13 @@ void terminal_vprintf(const char *fmt, va_list ap)
 				break;
 			}
 			default:
-				panic("\nformat `l%c' not implemented", *fmt);
+				panic("\nformat 'l%c' not implemented", *fmt);
 			}
 
 			break;
 		}
 		default:
-			panic("\nformat `%c' not implemented", *fmt);
+			panic("\nformat '%c' not implemented", *fmt);
 		}
 
 		fmt++;

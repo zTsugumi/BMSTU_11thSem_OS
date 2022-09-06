@@ -51,8 +51,8 @@ boot_entry:
 	movw $0x7de8, %di // 0x7e00 - 24
 	xorl %ebx, %ebx
 
-	// before first call `%edx' must contain this magic value
-	movl $0x534d4150, %edx // `SMAP'
+	// before first call '%edx' must contain this magic value
+	movl $0x534d4150, %edx // 'SMAP'
 	xorl %esi, %esi
 
 	detect_high_memory:
@@ -64,14 +64,14 @@ boot_entry:
 		// carry flag is clear in case all is ok
 		jc memory_detected
 
-		// magic value must be inside `%eax' in case success call
-		cmpl $0x534d4150, %eax // `SMAP'
+		// magic value must be inside '%eax' in case success call
+		cmpl $0x534d4150, %eax // 'SMAP'
 		jne memory_detected
 
 		// increase records count
 		incl %esi
 
-		// `%ebx' will be set to `0' at the end of list
+		// '%ebx' will be set to '0' at the end of list
 		test %ebx, %ebx
 		jnz detect_high_memory
 

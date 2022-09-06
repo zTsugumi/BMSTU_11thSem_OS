@@ -3,10 +3,10 @@
 int main(void)
 {
 	char child_buffer[] = "child: 0\n";
-	char *child_ptr = child_buffer + 7; // points to `0'
+	char *child_ptr = child_buffer + 7; // points to '0'
 
 	char parent_buffer[] = "parent: 0\n";
-	char *parent_ptr = parent_buffer + 8; // points to `0'
+	char *parent_ptr = parent_buffer + 8; // points to '0'
 
 	for (int i = 0; i < 3; i++) {
 		int r = sys_fork();

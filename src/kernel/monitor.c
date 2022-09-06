@@ -143,7 +143,7 @@ static void monitor_process_command(const char *c)
 		return monitor_command[i].handler(argc, argv);
 	}
 
-	terminal_printf("unknown command: `%s'\n", argv[0] ?: "");
+	terminal_printf("unknown command: '%s'\n", argv[0] ?: "");
 	help_command_handler(0, NULL);
 }
 
@@ -153,7 +153,7 @@ static void help_command_handler(int argc, char *argv[])
 
 	terminal_printf("Available commands:\n");
 	for (int i = 0; monitor_command[i].handler != NULL; i++) {
-		terminal_printf("`%s': %s\n", monitor_command[i].name,
+		terminal_printf("'%s': %s\n", monitor_command[i].name,
 					      monitor_command[i].description);
 	}
 }
