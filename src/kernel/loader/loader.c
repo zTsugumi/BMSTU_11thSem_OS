@@ -52,8 +52,8 @@ panic_t panic = loader_panic;
 struct kernel_config *config;
 
 void *loader_alloc(uint64_t size, uint32_t align);
-void loader_detect_memory(struct bios_mmap_entry *mm, uint32_t cnt);
-int loader_init_memory(struct bios_mmap_entry *mm, uint32_t cnt);
+uint64_t loader_detect_memory(struct bios_mmap_entry *mm, uint32_t cnt);
+int loader_init_memory(struct bios_mmap_entry *mm, uint32_t cnt, uint64_t pages_cnt);
 int loader_map_section(uint64_t va, uintptr_t pa, uint64_t len, bool hard);
 
 bool page_is_available(uint64_t paddr, struct bios_mmap_entry *mm, uint32_t cnt);
@@ -141,7 +141,7 @@ uint64_t loader_detect_memory(struct bios_mmap_entry *memory_map, uint32_t cnt)
     (void)cnt;
 
     max_physical_address = 0;
-    pages_cnt = 0;
+    uint64_t pages_cnt = 0;
 
     terminal_printf("Available memory: %u Kb (%u pages)\n",
                     (uint32_t)(max_physical_address / 1024), (uint32_t)pages_cnt);
