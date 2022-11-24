@@ -26,6 +26,10 @@ define debug-boot
 
 	b bootmain
 
+	b *0x7ce3
+
+	b *0x7d27
+
 	b *0x100000
 end
 document debug-boot
